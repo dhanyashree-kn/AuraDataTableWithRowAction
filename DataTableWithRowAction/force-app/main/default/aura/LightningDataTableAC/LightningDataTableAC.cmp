@@ -3,7 +3,6 @@
     <aura:attribute name="sObjectType" type="String" default="Contact"/>
     <aura:attribute name="data" type="Object"/>
     <aura:attribute name="columns" type="List"/>    
-    <aura:attribute name="recordIdToDelete" type="String"/>
     <aura:attribute name="showModal" type="boolean" default="fasle"/>
     <aura:attribute name="contactDetail" type="Object"/>
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
