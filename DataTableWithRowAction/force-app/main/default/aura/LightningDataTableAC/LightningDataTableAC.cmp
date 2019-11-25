@@ -1,0 +1,45 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global"
+                controller="DataTableWithRowActionController">
+    <aura:attribute name="sObjectType" type="String" default="Contact"/>
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>    
+    <aura:attribute name="recordIdToDelete" type="String"/>
+    <aura:attribute name="showModal" type="boolean" default="fasle"/>
+    <aura:attribute name="contactDetail" type="Object"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+	<div class="slds-p-around_medium">
+        <lightning:card title="Lightning data table with row action">
+            <lightning:dataTable keyField="id"
+                        	data="{!v.data}"
+                        	columns="{!v.columns}"
+                            onrowaction="{!c.handleRowAction}"
+                            hideCheckboxColumn="true"/>
+        </lightning:card>
+    </div>
+    <aura:if isTrue="{!v.showModal}">
+    	<section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" 
+                                          iconName="utility:close"
+                                          variant="bare-inverse"
+                                          title="close"
+                                          alternativeText="Close window"
+                                          onclick="{!c.closeModal}"/>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Confirmation</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="slds-text-align_center">
+                        Are sure you want to delete the contact {!v.contactDetail.Name}
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neautral" label="No" onclick="{!c.closeModal}"/>
+                    <lightning:button variant="brand" label="Yes" onclick="{!c.proceedDelete}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>    
+    </aura:if>
+</aura:component>
